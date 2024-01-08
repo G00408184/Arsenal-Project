@@ -1,17 +1,26 @@
 package ie.atu.arsenalproject;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.List;
 
 @Service
 public class PlayerService {
+    private final PlayerRepo playerRepo;
+    public PlayerService(PlayerRepo playerRepo) {
+        this.playerRepo = playerRepo;
+    }
 
-    @Autowired
-    private PlayerRepository playerRepository;
 
-    public List<Player> getAllPlayers() {
-        return playerRepository.findAll();
+    public void savePlayer(Player  player){
+        playerRepo.save(player);
+   }
+
+
+   // public List<Player> getAllPlayers() {
+   //     return playerRepository.findAll();
+   // }
+    public Player getPlayerByName(String name){
+
+       return new Player();
     }
 
 }
