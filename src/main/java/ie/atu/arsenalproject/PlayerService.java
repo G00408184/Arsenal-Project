@@ -14,13 +14,8 @@ public class PlayerService {
         playerRepo.save(player);
    }
 
-
-   // public List<Player> getAllPlayers() {
-   //     return playerRepository.findAll();
-   // }
     public Player getPlayerByName(String name){
-
-       return new Player();
+       return playerRepo.findByName(name);
     }
 
 }
