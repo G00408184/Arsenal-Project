@@ -1,8 +1,6 @@
 package ie.atu.arsenalproject;
 
 import jakarta.validation.Valid;
-
-import org.springframework.data.repository.query.parser.Part;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -72,7 +70,10 @@ import java.util.List;
 
             // Update the existing player with the new details
             existingPlayer.setName(updatedPlayer.getName());
+            existingPlayer.setAge(updatedPlayer.getAge());
             existingPlayer.setPosition(updatedPlayer.getPosition());
+            existingPlayer.setEmail(updatedPlayer.getEmail());
+            existingPlayer.setNationality(updatedPlayer.getNationality());
             // Add more fields as needed
 
             playerService.savePlayer(existingPlayer);
