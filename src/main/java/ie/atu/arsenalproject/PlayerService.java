@@ -20,9 +20,7 @@ public class PlayerService {
     public Player getPlayerByName(String name){
        return playerRepo.findByName(name);
     }
-    public Player getPlayerById(String id){
-        return playerRepo.findById(id);
-    }
+
 
     public List<Player> getAllPlayers(){
         return playerRepo.findAll();
