@@ -25,5 +25,8 @@ public class PlayerService {
     public List<Player> getAllPlayers(){
         return playerRepo.findAll();
     }
+    public void deletePlayer(Player player) {
+        playerRepo.delete(player);
+    }
 }
 

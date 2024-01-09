@@ -2,6 +2,7 @@ package ie.atu.arsenalproject;
 
 import jakarta.validation.Valid;
 
+import org.springframework.data.repository.query.parser.Part;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +38,49 @@ import java.util.List;
             playerService.savePlayer(player);
             return new ResponseEntity<>("Player created successfully", HttpStatus.OK);
         }
+        @DeleteMapping("/delete/{name}")
+        public ResponseEntity<String> deletePlayerByName(@PathVariable String name) {
+            // Check if the name is not empty
+            if (name.isBlank()) {
+                return ResponseEntity.badRequest().body("Player name cannot be empty");
+            }
 
+            List<Player> players = playerService.getAllPlayers();
+            Player existingPlayer = null;
+            // Iterate through the list of players and find a case-insensitive match
+            for (Player player : players) {
+                if (player.getName().equalsIgnoreCase(name)) {
+                    existingPlayer = player;
+                    break; // Exit the loop as soon as a match is found
+                }
+            }
+            if (existingPlayer == null) {
+                return ResponseEntity.notFound().build();
+            }
+            // Delete the player from the repository
+            playerService.deletePlayer(existingPlayer);
+            return new ResponseEntity<>("Player deleted successfully", HttpStatus.OK);
         }
+
+        @PutMapping("/edit/{name}")
+        public ResponseEntity<String> editPlayerByName(@PathVariable String name, @RequestBody Player updatedPlayer) {
+            Player existingPlayer = playerService.getPlayerByName(name);
+
+            if (existingPlayer == null) {
+                return ResponseEntity.notFound().build();
+            }
+
+            // Update the existing player with the new details
+            existingPlayer.setName(updatedPlayer.getName());
+            existingPlayer.setPosition(updatedPlayer.getPosition());
+            // Add more fields as needed
+
+            playerService.savePlayer(existingPlayer);
+
+            return new ResponseEntity<>("Player updated successfully", HttpStatus.OK);
+        }
+
+
+    }
 
 
