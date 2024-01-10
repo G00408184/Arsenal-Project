@@ -1,4 +1,4 @@
-package ie.atu.arsenalproject;
+package ie.atu.arsenalproject.playerMicroservice;
 
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -61,25 +61,16 @@ import java.util.List;
         }
 
         @PutMapping("/edit/{name}")
-        public ResponseEntity<String> editPlayerByName(@PathVariable String name, @RequestBody Player updatedPlayer) {
-            Player existingPlayer = playerService.getPlayerByName(name);
+        public ResponseEntity<String> editPlayerByName(@PathVariable String name, @Valid @RequestBody Player updatedPlayer) {
+            Player existingPlayer = playerService.updatePlayerByName(name, updatedPlayer);
 
             if (existingPlayer == null) {
                 return ResponseEntity.notFound().build();
             }
 
-            // Update the existing player with the new details
-            existingPlayer.setName(updatedPlayer.getName());
-            existingPlayer.setAge(updatedPlayer.getAge());
-            existingPlayer.setPosition(updatedPlayer.getPosition());
-            existingPlayer.setEmail(updatedPlayer.getEmail());
-            existingPlayer.setNationality(updatedPlayer.getNationality());
-            // Add more fields as needed
-
-            playerService.savePlayer(existingPlayer);
-
             return new ResponseEntity<>("Player updated successfully", HttpStatus.OK);
         }
+
 
 
     }

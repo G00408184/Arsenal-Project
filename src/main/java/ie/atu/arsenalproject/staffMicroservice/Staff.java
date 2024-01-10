@@ -1,4 +1,4 @@
-package ie.atu.arsenalproject;
+package ie.atu.arsenalproject.staffMicroservice;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;

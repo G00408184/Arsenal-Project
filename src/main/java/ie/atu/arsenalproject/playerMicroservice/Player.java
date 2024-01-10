@@ -1,5 +1,4 @@
-package ie.atu.arsenalproject;
-
+package ie.atu.arsenalproject.playerMicroservice;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Data;

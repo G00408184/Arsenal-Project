@@ -1,4 +1,4 @@
-package ie.atu.arsenalproject;
+package ie.atu.arsenalproject.staffMicroservice;
 
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -64,22 +64,14 @@ public class StaffController {
     }
 
     @PutMapping("/editStaff/{name}")
-    public ResponseEntity<String> editStaffByName(@PathVariable String name, @RequestBody Staff updatedStaff) {
-        Staff existingStaff = staffService.getStaffByName(name);
+    public ResponseEntity<String> editStaffByName(@PathVariable String name, @Valid @RequestBody Staff updatedStaff) {
+        Staff existingStaff = staffService.updateStaffByName(name, updatedStaff);
 
         if (existingStaff == null) {
             return ResponseEntity.notFound().build();
         }
 
-        // Update the existing staff with the new details
-        existingStaff.setName(updatedStaff.getName());
-        existingStaff.setAge(updatedStaff.getAge());
-        existingStaff.setRole(updatedStaff.getRole());
-        existingStaff.setEmail(updatedStaff.getEmail());
-        existingStaff.setNationality(updatedStaff.getNationality());
-
-        staffService.saveStaff(existingStaff);
-
         return new ResponseEntity<>("Staff updated successfully", HttpStatus.OK);
     }
+
 }
